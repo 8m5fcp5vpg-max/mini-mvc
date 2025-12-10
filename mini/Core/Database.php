@@ -1,10 +1,5 @@
 <?php
 
-// Retenir son utilisation  => Database::getPDO()
-// Design Pattern : Singleton
-/**
- * Classe qui va nous permettre de nous connecter à notre base de données = oshop
- */
 namespace Mini\Core;
 
 use PDO;
@@ -25,7 +20,7 @@ class Database
                 "mysql:host={$configData['DB_HOST']};dbname={$configData['DB_NAME']};charset=utf8",
                 $configData['DB_USERNAME'],
                 $configData['DB_PASSWORD'],
-                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING) // Affiche les erreurs SQL à l'écran
+                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING) // Affiche les erreurs à l'écran
             );
         } catch (\Exception $exception) {
             echo 'Erreur de connexion...<br>';
@@ -39,7 +34,6 @@ class Database
     // the unique method you need to use
     public static function getPDO()
     {
-        // If no instance => create one
         if (empty(self::$_instance)) {
             self::$_instance = new Database();
         }
