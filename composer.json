@@ -5,7 +5,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Mini\\": "mini/"
+      "Mini\\": "Mini/"
     }
   },
   "minimum-stability": "stable",

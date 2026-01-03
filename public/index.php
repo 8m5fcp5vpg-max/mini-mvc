@@ -1,26 +1,19 @@
 <?php
-
 declare(strict_types=1);
 
+require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 
+use Mini\Core\Router;
 use Mini\Controllers\OrderController;
 use Mini\Controllers\CartController;
 use Mini\Controllers\ProductController;
 use Mini\Controllers\AuthController;
-use Mini\Core;
 use Mini\Core\Database;
-use Mini\Core\Router;
 use Mini\Controllers\HomeController;
 
-
 $routes = [
-    // Route Accueil
     ['GET', '/', [HomeController::class, 'index']],
-    
-    // Ajoute tes futures routes ici
-    // ['GET', '/product', [ProductController::class, 'show']], 
-
     ['GET', '/orders', [OrderController::class, 'history']],
     ['GET', '/cart', [CartController::class, 'index']],      
     ['POST', '/cart/add', [CartController::class, 'add']],    
@@ -37,19 +30,28 @@ $routes = [
 try {
     $router = new Router($routes);
 
-    $uri = $_SERVER['REQUEST_URI'];
-    $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
-    $scriptDir = str_replace('\\', '/', $scriptDir);
+    // Extract the path from REQUEST_URI (remove query string)
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     
-    if (strpos($uri, $scriptDir) === 0) {
-        $uri = substr($uri, strlen($scriptDir));
+    // Remove the base directory if present (for subdirectory installations)
+    $basePath = dirname($_SERVER['SCRIPT_NAME']);
+    if ($basePath !== '/' && strpos($uri, $basePath) === 0) {
+        $uri = substr($uri, strlen($basePath));
     }
     
-    if ($uri === '' || $uri === false) {
+    // Ensure URI starts with /
+    if (empty($uri)) {
         $uri = '/';
     }
     
-    $router->dispatch($_SERVER['REQUEST_METHOD'], $uri);
+    // Handle routing without .htaccess
+    $_GET['route'] = $_SERVER['REQUEST_URI'];
+    if ($_GET['route'] !== '/' && strpos($_GET['route'], '?') !== false) {
+        $_GET['route'] = substr($_GET['route'], 0, strpos($_GET['route'], '?'));
+    }
+
+    // Remove query string and pass to router
+    $router->dispatch($_SERVER['REQUEST_METHOD'], $_GET['route']);
 
 } catch (\Throwable $e) {
     echo "<h2 style='color:red; font-family:sans-serif;'>Erreur Fatale</h2>";
