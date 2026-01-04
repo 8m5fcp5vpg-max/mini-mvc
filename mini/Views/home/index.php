@@ -36,7 +36,7 @@
             max-width: 1440px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             height: 60px;
             width: 100%;
@@ -48,13 +48,14 @@
             font-weight: 600;
             letter-spacing: -0.5px;
             min-width: 40px;
+            position: absolute;
+            left: 20px;
         }
 
         nav .nav-middle {
             display: flex;
             gap: 32px;
             align-items: center;
-            flex: 1;
             justify-content: center;
         }
 
@@ -63,6 +64,8 @@
             gap: 24px;
             align-items: center;
             min-width: fit-content;
+            position: absolute;
+            right: 20px;
         }
 
         nav .logo a {
@@ -420,9 +423,103 @@
             .product-price {
                 font-size: 24px;
             }
+
+            nav .nav-middle {
+                gap: 24px;
+            }
+
+            nav .nav-right {
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 80px 40px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                height: auto;
+                padding: 0 15px;
+            }
+
+            nav .nav-container {
+                height: auto;
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav .logo {
+                position: static;
+                left: auto;
+                font-size: 16px;
+            }
+
+            nav .nav-middle {
+                display: none;
+            }
+
+            nav .nav-right {
+                position: static;
+                right: auto;
+                gap: 12px;
+                width: 100%;
+                justify-content: flex-end;
+                align-items: center;
+            }
+
+            main {
+                margin-top: auto;
+                padding-top: 20px;
+            }
+
+            .product-card {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 500px;
+            }
+
+            .product-image {
+                min-height: 350px;
+                font-size: 70px;
+            }
+
+            .product-info {
+                padding: 50px;
+            }
+
+            .hero {
+                padding: 60px 30px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 640px) {
+            nav .btn-auth {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            nav .user-greeting {
+                display: none;
+            }
+
             .product-card {
                 grid-template-columns: 1fr;
                 height: auto;
@@ -439,28 +536,69 @@
             }
 
             .product-title {
-                font-size: 28px;
+                font-size: 24px;
             }
 
             .product-description {
-                font-size: 16px;
-            }
-
-            .product-price {
-                font-size: 22px;
-            }
-
-            .product-link {
-                padding: 10px 24px;
                 font-size: 14px;
             }
 
+            .product-price {
+                font-size: 20px;
+            }
+
+            .product-link {
+                padding: 12px 24px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+
             .section-header {
-                padding: 60px 20px;
+                padding: 40px 20px 30px 20px;
             }
 
             .section-header h2 {
-                font-size: 32px;
+                font-size: 24px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            .hero p {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-actions a {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .empty-state {
+                padding: 60px 20px;
+                min-height: 400px;
+            }
+
+            .empty-state h3 {
+                font-size: 20px;
+            }
+
+            .empty-state p {
+                font-size: 14px;
             }
         }
 
@@ -489,7 +627,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav>
         <div class="nav-container">
             <div class="logo">
@@ -525,9 +662,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
         <section class="hero">
             <h1>L'essentiel. En plus puissant.</h1>
             <p>Découvrez nos trois produits phares. Conçus pour la performance. Façonnés pour vous.</p>

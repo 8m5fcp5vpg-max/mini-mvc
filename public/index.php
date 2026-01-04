@@ -43,15 +43,14 @@ try {
     if (empty($uri)) {
         $uri = '/';
     }
-    
-    // Handle routing without .htaccess
-    $_GET['route'] = $_SERVER['REQUEST_URI'];
-    if ($_GET['route'] !== '/' && strpos($_GET['route'], '?') !== false) {
-        $_GET['route'] = substr($_GET['route'], 0, strpos($_GET['route'], '?'));
+
+    // Remove query string from URI
+    if (strpos($uri, '?') !== false) {
+        $uri = substr($uri, 0, strpos($uri, '?'));
     }
 
-    // Remove query string and pass to router
-    $router->dispatch($_SERVER['REQUEST_METHOD'], $_GET['route']);
+    // Dispatch with clean URI
+    $router->dispatch($_SERVER['REQUEST_METHOD'], $uri);
 
 } catch (\Throwable $e) {
     echo "<h2 style='color:red; font-family:sans-serif;'>Erreur Fatale</h2>";

@@ -47,13 +47,15 @@ class Product
     }
 
     /**
-     * Récupère un produit par son ID
+     * Récupère un produit par son ID avec sa catégorie
      * @param int $id
      * @return array|false
      */
     public function find(int $id)
     {
-        $sql = "SELECT * FROM produit WHERE id = :id";
+        $sql = "SELECT p.*, c.nom as categorie_nom FROM produit p 
+                LEFT JOIN categorie c ON p.categorie_id = c.id 
+                WHERE p.id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
         

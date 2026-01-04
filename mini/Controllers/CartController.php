@@ -81,7 +81,7 @@ class CartController extends Controller
     public function clear(): void
     {
         unset($_SESSION['panier']);
-        header('Location: ./cart');
+        header('Location: /cart');
         exit;
     }
 }
